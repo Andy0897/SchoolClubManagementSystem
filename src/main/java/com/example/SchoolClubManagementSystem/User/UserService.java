@@ -23,7 +23,7 @@ public class UserService {
             return "sign-up";
         }
         user.setEnable(true);
-        user.setRole("STUDENT");
+        user.setRole("USER");
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/sign-in";

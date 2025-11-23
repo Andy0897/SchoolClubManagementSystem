@@ -4,6 +4,8 @@ import com.example.SchoolClubManagementSystem.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+@Entity
+@Table(name = "clubs")
 public class Club {
     @Column(name = "club_id")
     @Id
@@ -11,7 +13,7 @@ public class Club {
     private Long id;
 
     @NotEmpty(message = "Полето не може да бъде празно")
-    private String title;
+    private String name;
 
     @NotEmpty(message = "Полето не може да бъде празно")
     private String description;
@@ -32,12 +34,12 @@ public class Club {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -54,5 +56,13 @@ public class Club {
 
     public void setTeacher(User teacher) {
         this.teacher = teacher;
+    }
+
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
     }
 }
