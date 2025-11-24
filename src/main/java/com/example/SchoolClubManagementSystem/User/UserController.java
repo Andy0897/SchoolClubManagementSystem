@@ -16,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/", "/home"})
     public String getHome(Model model) {
         return "home";
     }

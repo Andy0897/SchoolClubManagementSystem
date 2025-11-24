@@ -26,15 +26,15 @@ public class ClubController {
 
     @GetMapping("/create")
     public String getCreateClub(Model model, Principal principal) {
-        User teacher = userRepository.getUserByUsername(principal.getName());
         Club club = new Club();
-        club.setTeacher(teacher);
         model.addAttribute("club", club);
+        model.addAttribute("isLogoSelected", true);
+        model.addAttribute("hasUploadError", false);
         return "club/create";
     }
 
     @PostMapping("/submit")
-    public String submitClub(@Valid Club club, BindingResult bindingResult, @RequestParam("logo") MultipartFile logo, Model model) {
-        return clubService.submitClub(club, bindingResult, logo, model);
+    public String submitClub(@Valid Club club, BindingResult bindingResult, @RequestParam("logo") MultipartFile logo, Model model, Principal principal) {
+        return clubService.submitClub(club, bindingResult, logo, model, principal);
     }
 }

@@ -33,7 +33,7 @@ public class User {
     @Size(max = 1000, message = "Паролата не трябва да надвишава 14 символа")
     private String password;
 
-    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'STUDENT'")
+    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'USER'")
     private String role;
     @Column(columnDefinition = "BIT DEFAULT 1")
     private boolean enable;

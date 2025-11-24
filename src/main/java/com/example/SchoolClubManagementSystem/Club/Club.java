@@ -19,7 +19,7 @@ public class Club {
     private String description;
 
     @OneToOne
-    @JoinColumn(name = "brand_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User teacher;
 
     @ElementCollection
