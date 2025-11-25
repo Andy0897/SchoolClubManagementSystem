@@ -70,4 +70,20 @@
             }
         });
     });
+
+    function updateModels(brandId) {
+        fetch(`/models/models-by-brand/${brandId}`)
+        .then(response => response.json())
+        .then(models => {
+            const modelDropdown = document.getElementById("model");
+            modelDropdown.innerHTML = '<option value="">Избери</option>';
+            models.forEach(model => {
+                const option = document.createElement("option");
+                option.value = model.id;
+                option.textContent = model.name;
+                modelDropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Error fetching models:", error));
+    }
 </script>

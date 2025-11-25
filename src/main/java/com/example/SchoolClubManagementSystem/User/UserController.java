@@ -11,9 +11,11 @@ import java.security.Principal;
 @Controller
 public class UserController {
     UserService userService;
+    UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping({"/", "/home"})
@@ -39,5 +41,12 @@ public class UserController {
     @PostMapping("/submit")
     public String submitUser(@Valid User user, BindingResult bindingResult, Model model) {
         return userService.submitUser(user, bindingResult, model);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/teacher-has-club}")
+    public boolean checkIfTeacherHasClub(@PathVariable("brandId") Long brandId, Principal principal) {
+        User teacher = userRepository.getUserByUsername(principal.getName());
+        return true;//to be continued
     }
 }
