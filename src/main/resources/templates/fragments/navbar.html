@@ -34,24 +34,18 @@
                 <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-2">
                     <div class="dropdown">
                         <button sec:authorize="hasAuthority('ADMIN')" class="btn btn-outline-primary dropdown-toggle"
-                                type="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                                type="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" onclick="checkTeacherHasClub()">
                             Администраторски панел
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="/clubs/create">Създай клуб</a>
+                                <a class="dropdown-item" id="withoutClub" href="/clubs/create">Създай клуб</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/clubs/create">jknfkf</a>
+                                <a class="dropdown-item" id="withClub" href="/clubs/my-club">Моят клуб</a>
                             </li>
                         </ul>
                     </div>
-                    <button class="btn btn-primary" onclick="window.location.href='/cart/';">
-                        <img th:src="@{/images/cart-icon.jpg}" style="width: 25px; height: 25px;" alt="Cart Icon">
-                    </button>
-                    <button class="btn btn-primary" onclick="window.location.href='/profile';">
-                        <img th:src="@{/images/profile-icon.jpg}" style="width: 25px; height: 25px;" alt="Profile Icon">
-                    </button>
                 </div>
             </div>
         </div>
@@ -71,19 +65,22 @@
         });
     });
 
-    function updateModels(brandId) {
-        fetch(`/models/models-by-brand/${brandId}`)
+    function checkTeacherHasClub() {
+    fetch("/teacher-has-club")
         .then(response => response.json())
-        .then(models => {
-            const modelDropdown = document.getElementById("model");
-            modelDropdown.innerHTML = '<option value="">Избери</option>';
-            models.forEach(model => {
-                const option = document.createElement("option");
-                option.value = model.id;
-                option.textContent = model.name;
-                modelDropdown.appendChild(option);
-            });
+        .then(hasClub => {
+
+            const btn = document.getElementById("clubButton");
+
+            if (hasClub === true) {
+                var element = document.getElementById("withoutClub");
+                element.parentNode.removeChild(element);
+            } else {
+                var element = document.getElementById("withClub");
+                element.parentNode.removeChild(element);
+            }
+
         })
-        .catch(error => console.error("Error fetching models:", error));
-    }
+        .catch(err => console.error("Error:", err));
+}
 </script>

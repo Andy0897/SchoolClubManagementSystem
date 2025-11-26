@@ -26,11 +26,28 @@ public class ClubController {
 
     @GetMapping("/create")
     public String getCreateClub(Model model, Principal principal) {
-        Club club = new Club();
+        User teacher = userRepository.getUserByUsername(principal.getName());
+        Long clubId = clubRepository.getClubIdByTeacherId(teacher.getId());
+        if(clubId == null) {
+            Club club = new Club();
+            model.addAttribute("club", club);
+            model.addAttribute("isLogoSelected", true);
+            model.addAttribute("hasUploadError", false);
+            return "club/create";
+        }
+        return "redirect:/access-denied";
+    }
+
+    @GetMapping("/my-club")
+    public String getMyClub(Principal principal, Model model) {
+        User teacher = userRepository.getUserByUsername(principal.getName());
+        Long clubId = clubRepository.getClubIdByTeacherId(teacher.getId());
+        if(clubId == null) {
+            return "redirect:/clubs/create";
+        }
+        Club club = clubRepository.findById(clubId).get();
         model.addAttribute("club", club);
-        model.addAttribute("isLogoSelected", true);
-        model.addAttribute("hasUploadError", false);
-        return "club/create";
+        return "club/my-club";
     }
 
     @PostMapping("/submit")

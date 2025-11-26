@@ -1,5 +1,7 @@
 package com.example.SchoolClubManagementSystem.User;
 
+import com.example.SchoolClubManagementSystem.Club.Club;
+import com.example.SchoolClubManagementSystem.Club.ClubRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +14,12 @@ import java.security.Principal;
 public class UserController {
     UserService userService;
     UserRepository userRepository;
+    ClubRepository clubRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService, UserRepository userRepository, ClubRepository clubRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.clubRepository = clubRepository;
     }
 
     @GetMapping({"/", "/home"})
@@ -44,9 +48,11 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/teacher-has-club}")
-    public boolean checkIfTeacherHasClub(@PathVariable("brandId") Long brandId, Principal principal) {
+    @GetMapping("/teacher-has-club")
+    public boolean checkIfTeacherHasClub(Principal principal) {
         User teacher = userRepository.getUserByUsername(principal.getName());
-        return true;//to be continued
+        Long clubId = clubRepository.getClubIdByTeacherId(teacher.getId());
+        Club club = clubId == null ? null : clubRepository.findById(clubId).get();
+        return club != null;
     }
 }

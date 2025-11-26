@@ -22,8 +22,8 @@ public class Club {
     @JoinColumn(name = "user_id", nullable = false)
     private User teacher;
 
-    @ElementCollection
     @Lob
+    @Column(name = "logo", columnDefinition = "LONGBLOB")
     private byte[] logo;
 
     public Long getId() {
