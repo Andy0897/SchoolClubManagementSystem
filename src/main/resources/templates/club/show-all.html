@@ -5,7 +5,11 @@
 <nav th:replace="~{fragments/navbar}"></nav>
 <main>
     <div class="container mt-5" style="max-width: 1000px;">
-        <h1>Начало</h1>
+        <h1>Клубове</h1>
+        <div th:each="club : ${clubs}">
+            <h3 th:text="|${club.name} by ${club.teacher.firstName} ${club.teacher.lastName}|"></h3>
+            <a th:href="|/clubs/${club.id}|">Повече за клуба</a>
+        </div>
     </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>

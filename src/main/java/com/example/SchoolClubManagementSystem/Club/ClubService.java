@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 public class ClubService {
@@ -50,5 +51,23 @@ public class ClubService {
 
         clubRepository.save(club);
         return "redirect:/home";
+    }
+
+    public String submitJoinClub(Long clubId, Principal principal) {
+        Club club = clubRepository.findById(clubId).get();
+        User user = userRepository.getUserByUsername(principal.getName());
+        club.addStudent(user);
+        clubRepository.save(club);
+        return "redirect:/clubs/" + clubId;
+    }
+
+    public boolean checkIfUserIsInClub(User student, Club club) {
+        List<User> students = club.getStudents();
+        for(User st : students) {
+            if(st.getId() == student.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

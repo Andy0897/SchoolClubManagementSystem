@@ -24,7 +24,7 @@ public class Club {
     @JoinColumn(name = "teacher_id", nullable = false)
     private User teacher;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany
     private List<User> students;
 
     @Lob
