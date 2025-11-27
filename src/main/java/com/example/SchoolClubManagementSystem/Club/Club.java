@@ -4,6 +4,8 @@ import com.example.SchoolClubManagementSystem.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
+
 @Entity
 @Table(name = "clubs")
 public class Club {
@@ -19,8 +21,11 @@ public class Club {
     private String description;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "teacher_id", nullable = false)
     private User teacher;
+
+    @OneToMany(mappedBy="user")
+    private List<User> students;
 
     @Lob
     @Column(name = "logo", columnDefinition = "LONGBLOB")
@@ -56,6 +61,20 @@ public class Club {
 
     public void setTeacher(User teacher) {
         this.teacher = teacher;
+    }
+
+    public List<User> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<User> students) {
+        this.students = students;
+    }
+
+    public void addStudent(User user) {
+        if(user.getRole().equals("USER")) {
+            students.add(user);
+        }
     }
 
     public byte[] getLogo() {
