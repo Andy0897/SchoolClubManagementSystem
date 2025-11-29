@@ -1,17 +1,55 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-<body>
+
+<body class="clubs-bg">
+
 <nav th:replace="~{fragments/navbar}"></nav>
+
 <main>
-    <div class="container mt-5" style="max-width: 1000px;">
-        <h1>Клубове</h1>
-        <div th:each="club : ${clubs}">
-            <h3 th:text="|${club.name} by ${club.teacher.firstName} ${club.teacher.lastName}|"></h3>
-            <a th:href="|/clubs/${club.id}|">Повече за клуба</a>
+    <div class="container py-5">
+
+        <h1 class="text-center text-light mb-5">Клубове</h1>
+
+        <div class="row g-4" th:if="${clubs}">
+            <div class="col-md-6 col-lg-4" th:each="club : ${clubs}">
+                <div class="club-card p-3 rounded shadow-lg h-100 d-flex flex-column">
+
+                    <!-- Лого -->
+                    <div class="text-center mb-3">
+                        <img th:src="'data:image/jpeg;base64,' + ${club.logo}"
+                             alt="Лого"
+                             class="club-logo img-fluid rounded">
+                    </div>
+
+                    <!-- Име на клуба -->
+                    <h3 class="club-title text-center mb-2"
+                        th:text="${club.name}">
+                    </h3>
+
+                    <!-- Учител -->
+                    <p class="text-center text-light-50 small">
+                        Ръководител:
+                        <span th:text="|${club.teacher.firstName} ${club.teacher.lastName}|"></span>
+                    </p>
+
+                    <!-- Описание (кратко) -->
+                    <p class="club-description flex-grow-1" th:text="${club.description}">
+                    </p>
+
+                    <!-- Бутон -->
+                    <a class="btn btn-accent mt-3 w-100"
+                       th:href="|/clubs/${club.id}|">
+                        Повече за клуба
+                    </a>
+                </div>
+            </div>
         </div>
+
     </div>
 </main>
+
 <footer th:replace="~{fragments/footer}"></footer>
+
 </body>
 </html>

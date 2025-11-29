@@ -1,42 +1,69 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head th:replace="~{fragments/head}"></head>
+
 <body>
+
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <div class="container mt-5" style="max-width: 600px;">
-        <form th:action="@{/clubs/submit}" method="post" enctype="multipart/form-data" th:object="${club}">
-            <h1 class="text-center mb-4">Създаване на клуб</h1>
 
-            <div class="row g-4">
-                <div class="col-12">
-                    <label for="name" class="mb-1">Име на клуба</label>
-                    <input type="text" id="name" th:field="*{name}" class="form-control" />
-                    <div th:each="error : ${#fields.errors('name')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
-                </div>
+<main class="d-flex justify-content-center align-items-start py-5">
 
-                <div class="col-12">
-                    <label for="description" class="mb-1">Описание на клуба</label>
-                    <input type="text" id="description" th:field="*{description}" class="form-control" />
-                    <div th:each="error : ${#fields.errors('description')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
-                </div>
+    <div class="club-create-card p-4">
 
-                <div class="col-12">
-                    <label for="logo" class="mb-1">Лого</label>
-                    <input type="file" id="logo" name="logo" class="form-control" accept="image/png, image/gif, image/jpeg" />
-                    <div th:if="${hasUploadError}" th:text="Възникна грешка" class="alert alert-danger mt-2" role="alert"></div>
-                    <div th:if="${!isLogoSelected}" class="alert alert-danger mt-2" role="alert">
-                        Полето не може да бъде празно
-                    </div>
-                </div>
+        <form th:action="@{/clubs/submit}"
+              method="post"
+              th:object="${club}"
+              enctype="multipart/form-data">
 
-                <div class="col-12">
-                    <input type="submit" class="btn btn-primary w-100" value="Създай" />
+            <h1 class="text-center mb-4 form-title">Създаване на клуб</h1>
+
+            <div class="mb-4">
+                <label for="name" class="form-label glow-label">Име на клуба</label>
+                <input type="text" id="name" th:field="*{name}"
+                       class="form-control neon-input">
+
+                <div th:each="error : ${#fields.errors('name')}"
+                     th:text="${error}"
+                     class="alert alert-danger mt-2"></div>
+            </div>
+
+            <div class="mb-4">
+                <label for="description" class="form-label glow-label">Описание на клуба</label>
+                <input type="text" id="description" th:field="*{description}"
+                       class="form-control neon-input">
+
+                <div th:each="error : ${#fields.errors('description')}"
+                     th:text="${error}"
+                     class="alert alert-danger mt-2"></div>
+            </div>
+
+            <div class="mb-4">
+                <label for="logo" class="form-label glow-label">Лого</label>
+                <input type="file" id="logo" name="logo"
+                       class="form-control neon-input"
+                       accept="image/png, image/gif, image/jpeg"/>
+
+                <div th:if="${hasUploadError}"
+                     th:text="Възникна грешка"
+                     class="alert alert-danger mt-2"></div>
+
+                <div th:if="${!isLogoSelected}"
+                     class="alert alert-danger mt-2">
+                    Полето не може да бъде празно
                 </div>
             </div>
+
+            <button type="submit" class="btn btn-accent w-100 py-2 mt-2">
+                Създай
+            </button>
+
         </form>
     </div>
+
 </main>
+
 <footer th:replace="~{fragments/footer}"></footer>
+
 </body>
 </html>

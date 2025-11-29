@@ -3,18 +3,80 @@
 <head th:replace="~{fragments/head}"></head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <div class="container mt-5" style="max-width: 1000px;">
-        <h1 th:if="${isMine}">My Club</h1>
-        <h1 th:text="${club.name}"></h1>
-        <p th:text="${club.description}"></p>
-        <a th:if="${isStudent}"></a>
-        <form th:if="${isStudent && !isJoin}" th:action="|/clubs/submit-join-club/${club.id}|" method="post">
-            <button type="submit">Присъедини се</button>
-        </form>
-        <h2 th:if="${isJoin}">Вече сте член</h2>
+
+<main class="container py-5">
+
+    <!-- Club Header -->
+    <div class="club-header mb-5">
+
+        <div class="row align-items-center g-4">
+
+            <!-- Text + Buttons -->
+            <div class="col-md-8">
+                <h1 class="fw-bold fs-1 mb-3" th:text="${club.name}"></h1>
+                <p class="mb-4 opacity-75 fs-5" th:text="${club.description}"></p>
+
+                <div class="d-flex flex-wrap gap-3">
+
+                    <!-- Join -->
+                    <form th:if="${isStudent && !isJoin}"
+                          th:action="|/clubs/submit-join-club/${club.id}|"
+                          method="post">
+                        <button class="btn btn-accent px-4 py-2 shadow">Присъедини се</button>
+                    </form>
+
+                    <!-- Already joined -->
+                    <span th:if="${isJoin}"
+                          class="badge bg-info text-dark fs-6 px-3 py-2 shadow-sm">
+                            Вече сте член
+                        </span>
+
+                    <!-- Create post -->
+                    <button th:if="${isMine}"
+                            class="btn btn-outline-info px-4 py-2 shadow"
+                            onclick="window.location.href='/posts/add';">
+                        + Нова публикация
+                    </button>
+                </div>
+            </div>
+
+            <!-- Logo -->
+            <div class="col-md-4 text-center">
+                <img th:if="${club.logo != null}"
+                     th:src="'data:image/png;base64,' + ${club.logo}"
+                     class="rounded-circle club-logo"
+                     style="width: 170px; height: 170px; object-fit: cover;">
+
+                <div th:if="${club.logo == null}"
+                     class="rounded-circle d-flex align-items-center justify-content-center club-logo"
+                     style="width: 170px; height: 170px; background: rgba(255,255,255,0.12);">
+                    <span class="text-light opacity-75">Няма лого</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Posts -->
+    <h2 class="section-title mb-4">Публикации</h2>
+
+    <div class="row g-4">
+        <div class="col-sm-6 col-lg-4" th:each="post : ${club.posts}">
+            <div class="glass-card shadow-sm">
+
+                <img th:src="'data:image/jpeg;base64,' + ${post.image}"
+                     class="post-img w-100">
+
+                <div class="p-3">
+                    <h5 class="fw-semibold mb-2" th:text="${post.description}"></h5>
+                    <p class="text-light small opacity-75 mb-0" th:text="${post.uploadDate}"></p>
+                </div>
+
+            </div>
+        </div>
     </div>
 </main>
+
 <footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>

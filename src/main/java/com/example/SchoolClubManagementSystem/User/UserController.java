@@ -2,7 +2,12 @@ package com.example.SchoolClubManagementSystem.User;
 
 import com.example.SchoolClubManagementSystem.Club.Club;
 import com.example.SchoolClubManagementSystem.Club.ClubRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +29,7 @@ public class UserController {
 
     @GetMapping({"/", "/home"})
     public String getHome(Model model) {
+        model.addAttribute("clubs", clubRepository.findAll());
         return "home";
     }
 
@@ -54,5 +60,15 @@ public class UserController {
         Long clubId = clubRepository.getClubIdByTeacherId(teacher.getId());
         Club club = clubId == null ? null : clubRepository.findById(clubId).get();
         return club != null;
+    }
+
+    @GetMapping("/logout")
+    public String getLogout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        return "redirect:/";
     }
 }

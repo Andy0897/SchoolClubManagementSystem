@@ -1,77 +1,68 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml"
+<nav class="navbar navbar-expand-lg custom-nav shadow-lg"
+     xmlns:sec="http://www.w3.org/1999/xhtml"
      xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="container-fluid" style="max-width: 1000px;">
-        <a class="navbar-brand" href="/">
-            <h2 class="mr-4 text-primary" style="font-weight: bold;">IBOR</h2>
+
+    <div class="container-fluid" style="max-width: 1200px;">
+
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <h2 class="brand-title mb-0">School Clubs</h2>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+        <button class="navbar-toggler custom-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon custom-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Начало</a>
+                    <a class="nav-link custom-link" href="/">Начало</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/clubs">Клубове</a>
+                    <a class="nav-link custom-link" href="/clubs">Клубове</a>
                 </li>
+
             </ul>
-            <div class="d-flex align-items-center">
+
+            <div class="d-flex align-items-center gap-3">
+
+                <!-- НЕВПИСАН -->
                 <div sec:authorize="isAnonymous" class="d-flex gap-2">
-                    <button class="btn btn-outline-primary" onclick="window.location.href='/sign-in';">Вход</button>
-                    <button class="btn btn-primary" onclick="window.location.href='/sign-up';">Регистрация</button>
+                    <button class="btn btn-outline-accent" onclick="window.location.href='/sign-in';">Вход</button>
+                    <button class="btn btn-accent" onclick="window.location.href='/sign-up';">Регистрация</button>
                 </div>
+
+                <!-- ВПИСАН -->
                 <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-2">
+
                     <div class="dropdown">
-                        <button sec:authorize="hasAuthority('ADMIN')" class="btn btn-outline-primary dropdown-toggle"
-                                type="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" onclick="checkTeacherHasClub()">
+                        <button sec:authorize="hasAuthority('ADMIN')"
+                                class="btn btn-outline-accent dropdown-toggle"
+                                type="button" id="dropdownMenuLink"
+                                aria-haspopup="true" aria-expanded="false"
+                                onclick="checkTeacherHasClub()">
                             Администраторски панел
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" id="withoutClub" href="/clubs/create">Създай клуб</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" id="withClub" href="/clubs/my-club">Моят клуб</a>
-                            </li>
+
+                        <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" id="createClub" href="/clubs/create">Създай клуб</a></li>
+                            <li><a class="dropdown-item" id="myClub" href="/clubs/my-club">Моят клуб</a></li>
                         </ul>
                     </div>
+
+                    <button type="button" class="btn btn-dark-logout"
+                            onclick="window.location.href='/logout';">
+                        Излез
+                    </button>
+
                 </div>
+
             </div>
         </div>
     </div>
 </nav>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const dropdownToggle = document.getElementById('dropdownMenuLink');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        dropdownToggle.addEventListener('click', function (event) {
-            event.preventDefault();
-            if (dropdownMenu.classList.contains('show')) {
-                dropdownMenu.classList.remove('show');
-            } else {
-                dropdownMenu.classList.add('show');
-            }
-        });
-    });
-
-    function checkTeacherHasClub() {
-    fetch("/teacher-has-club")
-        .then(response => response.json())
-        .then(hasClub => {
-
-            const btn = document.getElementById("clubButton");
-
-            if (hasClub === true) {
-                var element = document.getElementById("withoutClub");
-                element.parentNode.removeChild(element);
-            } else {
-                var element = document.getElementById("withClub");
-                element.parentNode.removeChild(element);
-            }
-
-        })
-        .catch(err => console.error("Error:", err));
-}
-</script>

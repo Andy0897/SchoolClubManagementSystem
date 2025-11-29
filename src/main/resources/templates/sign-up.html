@@ -1,56 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-<body>
+
+<body class="auth-body">
+
 <nav th:replace="~{fragments/navbar}"></nav>
+
 <main>
-    <div class="container mt-5" style="max-width: 600px;">
-        <form th:action="@{/submit}" method="post" th:object="${user}" class="shadow-sm p-4 rounded">
-            <h1 class="text-center mb-4">Регистрация</h1>
+    <div class="container d-flex justify-content-center align-items-center auth-wrapper">
 
-            <div class="form-group mb-4">
-                <label for="firstName" class="mb-1">Име</label>
-                <input type="text" th:field="*{firstName}" id="firstName" name="firstName" class="form-control" placeholder="Въведете име">
-                <div th:each="error : ${#fields.errors('firstName')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
+        <form th:action="@{/submit}" method="post" th:object="${user}"
+              class="auth-card shadow-lg p-4 rounded-4 mt-4">
+
+            <h1 class="text-center mb-4 auth-title">Регистрация</h1>
+
+            <!-- Име -->
+            <div class="mb-4">
+                <label for="firstName" class="form-label auth-label">Име</label>
+                <input type="text" th:field="*{firstName}" id="firstName"
+                       class="form-control auth-input">
+                <div th:each="error : ${#fields.errors('firstName')}"
+                     th:text="${error}" class="alert alert-danger mt-2 auth-alert"></div>
             </div>
 
-            <div class="form-group mb-4">
-                <label for="lastName" class="mb-1">Фамилия</label>
-                <input type="text" th:field="*{lastName}" id="lastName" name="lastName" class="form-control" placeholder="Въведете фамилия">
-                <div th:each="error : ${#fields.errors('lastName')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
+            <!-- Фамилия -->
+            <div class="mb-4">
+                <label for="lastName" class="form-label auth-label">Фамилия</label>
+                <input type="text" th:field="*{lastName}" id="lastName"
+                       class="form-control auth-input">
+                <div th:each="error : ${#fields.errors('lastName')}"
+                     th:text="${error}" class="alert alert-danger mt-2 auth-alert"></div>
             </div>
 
-            <div class="form-group mb-4">
-                <label for="username" class="mb-1">Потребителско име</label>
-                <input type="text" th:field="*{username}" id="username" name="username" class="form-control" placeholder="Въведете потребителско име">
-                <div th:each="error : ${#fields.errors('username')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
-                <div th:if="${existsUserByUsername}" class="alert alert-danger mt-2" role="alert">Това потребителско име е заето</div>
+            <!-- Потребителско име -->
+            <div class="mb-4">
+                <label for="username" class="form-label auth-label">Потребителско име</label>
+                <input type="text" th:field="*{username}" id="username"
+                       class="form-control auth-input">
+                <div th:each="error : ${#fields.errors('username')}"
+                     th:text="${error}" class="alert alert-danger mt-2 auth-alert"></div>
+                <div th:if="${existsUserByUsername}" class="alert alert-danger mt-2 auth-alert">
+                    Това потребителско име е заето
+                </div>
             </div>
 
-            <div class="form-group mb-4">
-                <label for="email" class="mb-1">Имейл</label>
-                <input type="email" th:field="*{email}" id="email" name="email" class="form-control" placeholder="Въведете имейл">
-                <small id="emailHelp" class="form-text text-muted">Никога няма да споделяме вашия имейл с никой друг.</small>
-                <div th:each="error : ${#fields.errors('email')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
-                <div th:if="${existsUserByEmail}" class="alert alert-danger mt-2" role="alert">Този имейл вече е използван</div>
+            <!-- Имейл -->
+            <div class="mb-4">
+                <label for="email" class="form-label auth-label">Имейл</label>
+                <input type="email" th:field="*{email}" id="email"
+                       class="form-control auth-input">
+                <small class="form-text text-muted">Никога няма да споделяме вашия имейл с никой.</small>
+
+                <div th:each="error : ${#fields.errors('email')}"
+                     th:text="${error}" class="alert alert-danger mt-2 auth-alert"></div>
+
+                <div th:if="${existsUserByEmail}" class="alert alert-danger mt-2 auth-alert">
+                    Този имейл вече е използван
+                </div>
             </div>
 
-            <div class="form-group mb-4">
-                <label for="password" class="mb-1">Парола</label>
-                <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Въведете парола">
-                <div th:each="error : ${#fields.errors('password')}" th:text="${error}" class="alert alert-danger mt-2" role="alert"></div>
+            <!-- Парола -->
+            <div class="mb-4">
+                <label for="password" class="form-label auth-label">Парола</label>
+                <input type="password" th:field="*{password}" id="password"
+                       class="form-control auth-input">
+                <div th:each="error : ${#fields.errors('password')}"
+                     th:text="${error}" class="alert alert-danger mt-2 auth-alert"></div>
             </div>
 
-            <input type="submit" class="btn btn-primary mb-2 w-100" value="Регистрация"/>
+            <!-- Бутон -->
+            <input type="submit" class="btn btn-accent w-100 mb-3" value="Регистрация"/>
 
-            <hr class="mb-2 border-secondary-subtle">
-
-            <div class="text-center">
-                <a href="/sign-in" class="link-secondary text-decoration-none">Вече имаш акаунт?</a>
+            <div class="text-center mt-3">
+                <a href="/sign-in" class="auth-link">Вече имаш акаунт?</a>
             </div>
+
         </form>
+
     </div>
 </main>
+
 <footer th:replace="~{fragments/footer}"></footer>
+
 </body>
 </html>

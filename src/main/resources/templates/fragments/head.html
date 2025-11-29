@@ -12,5 +12,581 @@
         main {
             min-height: 50vh;
         }
+
+        body {
+            background: radial-gradient(circle at top left, #112240, #0a192f 60%);
+            color: #d9f8ff;
+            font-family: "Inter", sans-serif;
+        }
+
+        /* HEADER / CLUB INFO */
+        .club-header {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            box-shadow:
+                0 0 25px rgba(0,200,255,0.18),
+                inset 0 0 12px rgba(0,200,255,0.12);
+            backdrop-filter: blur(14px);
+            transition: 0.3s ease;
+        }
+
+        .club-header:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 0 40px rgba(0,200,255,0.25),
+                inset 0 0 20px rgba(0,200,255,0.22);
+        }
+
+        /* LOGO */
+        .club-logo {
+            border: 3px solid rgba(0,200,255,0.4);
+            box-shadow:
+                0 0 20px rgba(0,200,255,0.6),
+                0 6px 25px rgba(0,0,0,0.55);
+        }
+
+        /* ACCENT BUTTONS */
+        .btn-accent {
+            background: linear-gradient(135deg, #00e1ff, #0094b8);
+            border: none;
+            color: white !important;
+            font-weight: 600;
+            letter-spacing: .5px;
+            border-radius: 14px;
+            padding: 10px 22px;
+            box-shadow: 0 0 12px rgba(0,200,255,0.35);
+            transition: 0.25s;
+        }
+
+        .btn-accent:hover {
+            box-shadow: 0 0 22px rgba(0,200,255,0.55);
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* OUTLINE BUTTON */
+        .btn-outline-info {
+            border-radius: 14px;
+            border-width: 2px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .btn-outline-info:hover {
+            background: rgba(0,200,255,0.15);
+            box-shadow: 0 0 20px rgba(0,200,255,0.4);
+        }
+
+        /* POST CARDS */
+        .glass-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0,200,255,0.18);
+            box-shadow:
+                0 0 20px rgba(0,200,255,0.12),
+                0 6px 25px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 0 35px rgba(0,200,255,0.25),
+                0 10px 30px rgba(0,0,0,0.55);
+        }
+
+        /* POST IMAGE */
+        .post-img {
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0,200,255,0.15);
+        }
+
+        /* TITLES */
+        .section-title {
+            font-weight: 700;
+            color: #4eeeff;
+            text-shadow: 0 0 10px rgba(0,200,255,0.3);
+            letter-spacing: 1px;
+        }
+
+        /* ----- CREATE POST FORM CARD ----- */
+        .create-post-card {
+            width: 100%;
+            max-width: 550px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 22px;
+            padding: 35px;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0,200,255,0.15);
+            box-shadow:
+                0 0 25px rgba(0,200,255,0.18),
+                0 8px 25px rgba(0,0,0,0.45);
+        }
+
+        /* TITLE */
+        .form-title {
+            font-weight: 700;
+            color: #5feeff;
+            text-shadow: 0 0 12px rgba(0,200,255,0.25);
+        }
+
+        /* LABELS */
+        .glow-label {
+            color: #c8f8ff;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-shadow: 0 0 8px rgba(0,200,255,0.2);
+        }
+
+        /* INPUTS */
+        .neon-input {
+            background: rgba(255,255,255,0.09);
+            border: 1px solid rgba(0,200,255,0.18);
+            color: #e6fcff;
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0,200,255,0.15);
+            transition: 0.25s;
+        }
+
+        .neon-input:focus {
+            background: rgba(255,255,255,0.14);
+            border-color: #00e1ff;
+            box-shadow: 0 0 15px rgba(0,200,255,0.35);
+            color: #fff;
+        }
+
+        /* BUTTON ACCENT */
+        .btn-accent {
+            background: linear-gradient(135deg, #00e1ff, #0094b8);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 14px;
+            box-shadow: 0 0 12px rgba(0,200,255,0.35);
+            transition: 0.25s;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(0,200,255,0.55);
+        }
+
+        /* ————— CLUB CREATION FORM CARD ————— */
+        .club-create-card {
+            width: 100%;
+            max-width: 550px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid rgba(0,200,255,0.15);
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 0 25px rgba(0,200,255,0.12),
+                0 8px 25px rgba(0,0,0,0.45);
+            transition: 0.3s ease;
+        }
+
+        .club-create-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 0 40px rgba(0,200,255,0.22),
+                0 12px 30px rgba(0,0,0,0.55);
+        }
+
+        /* TITLE */
+        .form-title {
+            font-weight: 700;
+            color: #5feeff;
+            text-shadow: 0 0 12px rgba(0,200,255,0.25);
+        }
+
+        /* LABEL */
+        .glow-label {
+            color: #c8f8ff;
+            font-weight: 500;
+            text-shadow: 0 0 6px rgba(0,200,255,0.2);
+            margin-bottom: 4px;
+        }
+
+        /* INPUT */
+        .neon-input {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(0,200,255,0.18);
+            border-radius: 12px;
+            color: #e6fcff;
+            box-shadow: inset 0 0 12px rgba(0,200,255,0.15);
+            transition: 0.25s;
+        }
+
+        .neon-input:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: #00d8ff;
+            color: #fff;
+            box-shadow:
+                0 0 15px rgba(0,200,255,0.35),
+                inset 0 0 14px rgba(0,200,255,0.25);
+        }
+
+        /* SUBMIT BUTTON */
+        .btn-accent {
+            background: linear-gradient(135deg, #00e1ff, #0094b8);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 14px;
+            box-shadow: 0 0 15px rgba(0,200,255,0.35);
+            transition: 0.25s;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0,200,255,0.55);
+        }
+
+        /* Фон на страницата */
+        .clubs-bg {
+            background: linear-gradient(135deg, #1a1f2b, #232b3a);
+            min-height: 100vh;
+        }
+
+        /* Картички */
+        .club-card {
+            background: #2c3548;
+            border-radius: 20px;
+            color: #e6e6e6;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .club-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+        }
+
+        /* Заглавие */
+        .club-title {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Лого */
+        .club-logo {
+            max-height: 150px;
+            object-fit: contain;
+        }
+
+        /* Описание */
+        .club-description {
+            color: #c7cbd3;
+            font-size: 0.95rem;
+        }
+
+        /* Модерен акцент бутон */
+        .btn-accent {
+            background-color: #6c9eff;
+            color: #0d1117;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: #8ab4ff;
+        }
+
+        /* Главен фон на навигацията */
+        .custom-nav {
+            background: #1c2433;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Лого */
+        .brand-title {
+            font-weight: 700;
+            color: #8ab4ff;
+            letter-spacing: 1px;
+        }
+
+        /* Линковете */
+        .custom-link {
+            color: #d4d8e0 !important;
+            font-weight: 500;
+            margin-left: 8px;
+            transition: 0.2s ease;
+        }
+
+        .custom-link:hover {
+            color: #8ab4ff !important;
+            transform: translateY(-2px);
+        }
+
+        /* Тъмна икона + outline за мобилен бутон */
+        .custom-toggler {
+            border: none;
+        }
+
+        .custom-toggler-icon {
+            filter: invert(90%);
+        }
+
+        /* dropdown */
+        .custom-dropdown {
+            background-color: #2f394b;
+            border-radius: 12px;
+            padding: 10px 0;
+        }
+
+        .custom-dropdown .dropdown-item {
+            color: #d4d8e0;
+            padding: 10px 20px;
+        }
+
+        .custom-dropdown .dropdown-item:hover {
+            background-color: #3b475c;
+            color: #8ab4ff;
+        }
+
+        /* Бутони */
+        .btn-accent {
+            background-color: #6c9eff;
+            color: #0d1117;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 6px 14px;
+        }
+
+        .btn-accent:hover {
+            background-color: #8ab4ff;
+        }
+
+        .btn-outline-accent {
+            border: 2px solid #6c9eff;
+            color: #6c9eff;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 6px 14px;
+        }
+
+        .btn-outline-accent:hover {
+            background-color: #6c9eff;
+            color: #0d1117;
+        }
+
+        /* Logout бутон */
+        .btn-dark-logout {
+            background-color: #2e353f;
+            color: #e4e4e4;
+            padding: 6px 12px;
+            border-radius: 10px;
+            transition: 0.2s ease;
+        }
+
+        .btn-dark-logout:hover {
+            background-color: #3b4452;
+            color: #ffffff;
+        }
+
+        /* Фон на страницата */
+        .auth-body {
+            background: #0f1624;
+            min-height: 100vh;
+        }
+
+        /* Wrapper – центрира формата */
+        .auth-wrapper {
+            min-height: 80vh;
+        }
+
+        /* Карта / контейнер на формата */
+        .auth-card {
+            background: #1c2433;
+            border: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+            max-width: 460px;
+        }
+
+        /* Заглавие */
+        .auth-title {
+            color: #8ab4ff;
+            font-weight: 700;
+        }
+
+        /* Label-и */
+        .auth-label {
+            color: #d6d9e0;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Input-и */
+        .auth-input {
+            background: #2a3343;
+            border: 1px solid #3a4557;
+            color: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .auth-input:focus {
+            color: white;
+            background: #2a3343;
+            border-color: #8ab4ff;
+            box-shadow: 0 0 0 0.2rem rgba(138,180,255,0.25);
+        }
+
+        /* Accent бутон */
+        .btn-accent {
+            background-color: #6c9eff;
+            color: #0d1117;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 10px 14px;
+            transition: 0.25s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: #8ab4ff;
+        }
+
+        /* Линк за регистрация */
+        .auth-link {
+            color: #8ab4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Alerts */
+        .auth-alert {
+            border-radius: 10px;
+        }
+
+        /* === HERO BANNER === */
+        .hero-banner {
+            height: 45vh;
+            background: linear-gradient(to bottom right, #182030, #0f1624);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .hero-title {
+            color: #8ab4ff;
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            color: #d6d9e0;
+            font-size: 1.1rem;
+        }
+
+        /* === SECTION TITLES === */
+        .section-title {
+            color: #8ab4ff;
+            font-weight: 700;
+        }
+
+        .section-text {
+            color: #cdd2db;
+            font-size: 1rem;
+        }
+
+        /* === CLUB CARDS === */
+        .club-card {
+            background: #1c2433;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .club-card:hover {
+            transform: translateY(-4px);
+            background: #242e40;
+        }
+
+        .club-title {
+            color: #8ab4ff;
+            font-weight: 600;
+        }
+
+        .club-desc {
+            color: #d2d6de;
+        }
+
+        /* === CTA BOX === */
+        .cta-box {
+            background: #1c2433;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cta-title {
+            color: #8ab4ff;
+            font-weight: 700;
+        }
+
+        .cta-text {
+            color: #d3d7df;
+        }
+
+        .footer {
+            background: #1c2433;
+            color: #d7d7d7;
+        }
+
+        .footer-text {
+            color: #aeb4ba;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 6px;
+        }
+
+        .footer-link {
+            color: #c7cdd3;
+            text-decoration: none;
+            transition: color .2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-color);
+        }
+
+        .accent-text {
+            color: var(--accent-color);
+        }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 768px) {
+            .club-header {
+                padding: 25px;
+            }
+
+            .post-img {
+                height: 180px;
+            }
+
+            .club-logo {
+                width: 130px !important;
+                height: 130px !important;
+            }
+
+            .create-post-card {
+                padding: 25px;
+                border-radius: 18px;
+            }
+
+            .club-create-card {
+                padding: 24px;
+                border-radius: 18px;
+            }
+        }
     </style>
 </head>

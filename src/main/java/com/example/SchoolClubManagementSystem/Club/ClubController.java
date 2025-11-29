@@ -1,5 +1,6 @@
 package com.example.SchoolClubManagementSystem.Club;
 
+import com.example.SchoolClubManagementSystem.ImageEncoder;
 import com.example.SchoolClubManagementSystem.User.User;
 import com.example.SchoolClubManagementSystem.User.UserRepository;
 import jakarta.validation.Valid;
@@ -72,6 +73,7 @@ public class ClubController {
         model.addAttribute("isMine", false);
         model.addAttribute("isStudent", user.getRole().equals("USER"));
         model.addAttribute("isJoin", clubService.checkIfUserIsInClub(user, club));
+        model.addAttribute("encoder", new ImageEncoder());
         return "club/show";
     }
 

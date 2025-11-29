@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{fragments/head}"></head>
+
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<main class="d-flex justify-content-center align-items-start py-5">
+    <div class="create-post-card p-4">
+
+        <form th:action="@{/posts/submit}"
+              method="post"
+              th:object="${post}"
+              enctype="multipart/form-data">
+
+            <h1 class="text-center mb-4 form-title">Създай публикация</h1>
+
+            <!-- Описание -->
+            <div class="mb-4">
+                <label for="description" class="form-label glow-label">Описание</label>
+                <input type="text" id="description"
+                       th:field="*{description}"
+                       class="form-control neon-input"/>
+
+                <div th:each="error : ${#fields.errors('description')}"
+                     th:text="${error}"
+                     class="alert alert-danger mt-2"></div>
+            </div>
+
+            <!-- Снимка -->
+            <div class="mb-4">
+                <label for="image" class="form-label glow-label">Снимка</label>
+                <input type="file" id="image"
+                       name="image"
+                       class="form-control neon-input"
+                       accept="image/png, image/gif, image/jpeg"/>
+
+                <div th:if="${hasUploadError}"
+                     th:text="Възникна грешка при качване."
+                     class="alert alert-danger mt-2"></div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-accent w-100 py-2 mt-2">
+                Публикувай
+            </button>
+
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>

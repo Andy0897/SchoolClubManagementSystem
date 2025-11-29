@@ -1,8 +1,35 @@
-<footer class="bg-dark text-white mt-5 py-3">
-    <div class="container" style="max-width: 1000px;">
-        <hr class="bg-secondary">
-        <div class="text-center">
-            <p>&copy; 2025. Всички права запазени.</p>
+<footer class="footer mt-5 py-4" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container" style="max-width: 1100px;">
+        <div class="row align-items-center">
+
+            <!-- Лого и Инфо -->
+            <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                <h3 class="fw-bold accent-text">School Clubs</h3>
+                <p class="footer-text mt-2">
+                    Училищна платформа за клубове, ученици и учители.
+                    Свързваме, вдъхновяваме, развиваме.
+                </p>
+            </div>
+
+            <!-- Линкове -->
+            <div class="col-md-4 text-center mb-3 mb-md-0">
+                <ul class="footer-links list-unstyled">
+                    <li><a href="/" class="footer-link">Начало</a></li>
+                    <li><a href="/clubs" class="footer-link">Клубове</a></li>
+                    <li sec:authorize="isAnonymous()"><a href="/sign-in" class="footer-link">Вход</a></li>
+                    <li sec:authorize="isAnonymous()"><a href="/sign-up" class="footer-link">Регистрация</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')"><a href="/clubs/create" class="footer-link">Създай клуб</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')"><a href="/clubs/my-club" class="footer-link">Моят клуб</a></li>
+                </ul>
+            </div>
+
+            <!-- Контакти -->
+            <div class="col-md-4 text-center text-md-end">
+                <p class="footer-text mb-1">Свържи се с нас</p>
+                <p class="footer-text small">support@example.com</p>
+                <p class="footer-text small">© 2025 School Clubs — Всички права запазени.</p>
+            </div>
+
         </div>
     </div>
 </footer>

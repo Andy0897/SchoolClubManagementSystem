@@ -1,5 +1,7 @@
 package com.example.SchoolClubManagementSystem.Club;
 
+import com.example.SchoolClubManagementSystem.ImageEncoder;
+import com.example.SchoolClubManagementSystem.Post.Post;
 import com.example.SchoolClubManagementSystem.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -26,6 +28,9 @@ public class Club {
 
     @OneToMany
     private List<User> students;
+
+    @OneToMany
+    private List<Post> posts;
 
     @Lob
     @Column(name = "logo", columnDefinition = "LONGBLOB")
@@ -71,17 +76,29 @@ public class Club {
         this.students = students;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public String getLogo() {
+        return new ImageEncoder().encodeToBase64(logo);
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+
     public void addStudent(User user) {
         if(user.getRole().equals("USER")) {
             students.add(user);
         }
     }
 
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
+    public void addPost(Post post) {
+        posts.add(post);
     }
 }

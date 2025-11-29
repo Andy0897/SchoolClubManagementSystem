@@ -1,6 +1,8 @@
 package com.example.SchoolClubManagementSystem;
 
 import org.springframework.stereotype.Component;
+
+import java.io.Console;
 import java.util.Base64;
 
 @Component
