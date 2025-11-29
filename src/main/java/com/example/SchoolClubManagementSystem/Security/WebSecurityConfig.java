@@ -16,6 +16,7 @@ public class WebSecurityConfig {
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -25,8 +26,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/", "/home", "/access-denied").permitAll()
                         .requestMatchers("/sign-in", "/sign-up", "/submit").anonymous()
+                        .requestMatchers("/clubs/my-club", "/clubs/create", "/clubs/submit", "/posts/**").hasAuthority("ADMIN")
+                        .requestMatchers("/clubs/submit-join-club/**").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -40,7 +43,6 @@ public class WebSecurityConfig {
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             response.sendRedirect("/access-denied");
                         })
-
                 )
                 .logout((logout) -> logout.permitAll());
         return http.build();

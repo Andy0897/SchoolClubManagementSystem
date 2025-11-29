@@ -22,7 +22,8 @@
                     <form th:if="${isStudent && !isJoin}"
                           th:action="|/clubs/submit-join-club/${club.id}|"
                           method="post">
-                        <button class="btn btn-accent px-4 py-2 shadow">Присъедини се</button>
+                        <div th:if="${!canJoin}" class="alert alert-warning mt-2">Имате право да участвате само в един клуб</div>
+                        <button class="btn btn-accent px-4 py-2 shadow" th:disabled="${!canJoin}">Присъедини се</button>
                     </form>
 
                     <!-- Already joined -->
@@ -37,6 +38,22 @@
                             onclick="window.location.href='/posts/add';">
                         + Нова публикация
                     </button>
+
+                    <form th:action="|/clubs/${club.id}/students|">
+                        <button th:if="${isMine}" type="submit"
+                                class="btn btn-outline-warning px-4 py-2 shadow">
+                            👤 Управление на ученици
+                        </button>
+                    </form>
+
+                    <form th:if="${isMine}"
+                          th:action="|/clubs/${club.id}/submit-delete|"
+                          method="post"
+                          onsubmit="return confirm('Сигурни ли сте, че искате да изтриете този клуб? Това действие е необратимо.');">
+                        <button type="submit" class="btn btn-danger px-4 py-2 shadow">
+                            🗑 Затвори клуба
+                        </button>
+                    </form>
                 </div>
             </div>
 

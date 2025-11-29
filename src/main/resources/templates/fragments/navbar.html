@@ -66,3 +66,33 @@
         </div>
     </div>
 </nav>
+
+<script>
+     document.addEventListener('DOMContentLoaded', function () {
+         const dropdownToggle = document.getElementById('dropdownMenuLink');
+         const dropdownMenu = document.querySelector('.dropdown-menu');
+         dropdownToggle.addEventListener('click', function (event) {
+             event.preventDefault();
+             if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+             } else {
+                dropdownMenu.classList.add('show');
+             }
+         });
+     });
+     function checkTeacherHasClub() {
+         fetch("/teacher-has-club")
+         .then(response => response.json())
+         .then(hasClub => {
+             const btn = document.getElementById("clubButton");
+             if (hasClub === true) {
+                 var element = document.getElementById("createClub");
+                 element.parentNode.removeChild(element);
+             } else {
+                 var element = document.getElementById("myClub");
+                 element.parentNode.removeChild(element);
+             }
+         })
+         .catch(err => console.error("Error:", err));
+     }
+</script>

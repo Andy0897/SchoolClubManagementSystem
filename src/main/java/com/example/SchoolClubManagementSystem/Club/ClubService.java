@@ -1,5 +1,7 @@
 package com.example.SchoolClubManagementSystem.Club;
 
+import com.example.SchoolClubManagementSystem.Post.Post;
+import com.example.SchoolClubManagementSystem.Post.PostRepository;
 import com.example.SchoolClubManagementSystem.User.User;
 import com.example.SchoolClubManagementSystem.User.UserRepository;
 import jakarta.transaction.Transactional;
@@ -15,10 +17,12 @@ import java.util.List;
 public class ClubService {
     ClubRepository clubRepository;
     UserRepository userRepository;
+    PostRepository postRepository;
 
-    public ClubService(ClubRepository clubRepository, UserRepository userRepository) {
+    public ClubService(ClubRepository clubRepository, UserRepository userRepository, PostRepository postRepository) {
         this.clubRepository = clubRepository;
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @Transactional
@@ -53,6 +57,16 @@ public class ClubService {
         return "redirect:/home";
     }
 
+    public String submitRemoveStudent(Long clubId, Long studentId) {
+        Club club = clubRepository.findById(clubId).get();
+        User student = userRepository.findById(studentId).get();
+        List<User> students = club.getStudents();
+        students.remove(student);
+        club.setStudents(students);
+        clubRepository.save(club);
+        return "redirect:/clubs/" + clubId + "/students";
+    }
+
     public String submitJoinClub(Long clubId, Principal principal) {
         Club club = clubRepository.findById(clubId).get();
         User user = userRepository.getUserByUsername(principal.getName());
@@ -61,7 +75,7 @@ public class ClubService {
         return "redirect:/clubs/" + clubId;
     }
 
-    public boolean checkIfUserIsInClub(User student, Club club) {
+    public boolean checkIfStudentIsInClub(User student, Club club) {
         List<User> students = club.getStudents();
         for(User st : students) {
             if(st.getId() == student.getId()) {
@@ -69,5 +83,30 @@ public class ClubService {
             }
         }
         return false;
+    }
+
+    public boolean checkIfStudentIsInSomeClub(User student) {
+        List<Club> clubs = (List<Club>) clubRepository.findAll();
+        for(Club club : clubs) {
+            List<User> students = club.getStudents();
+            for(User st : students) {
+                if(st.getId() == student.getId()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public String submitDeleteClub(Long clubId) {
+        Club club = clubRepository.findById(clubId).get();
+        club.setStudents(null);
+        List<Post> posts = club.getPosts();
+        for(Post post : posts) {
+            postRepository.delete(post);
+        }
+        clubRepository.save(club);
+        clubRepository.delete(club);
+        return "redirect:/profile";
     }
 }

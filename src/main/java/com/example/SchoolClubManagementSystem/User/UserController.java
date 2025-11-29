@@ -62,6 +62,23 @@ public class UserController {
         return club != null;
     }
 
+    @GetMapping("/profile")
+    public String getProfile(Principal principal, Model model) {
+        User user = userRepository.getUserByUsername(principal.getName());
+        if(user.getRole().equals("ADMIN")) {
+            Long clubId = clubRepository.getClubIdByTeacherId(user.getId());
+            Club club = clubId != null ? clubRepository.findById(clubId).get() : null;
+            model.addAttribute("teacherClub", club);
+        }
+        else {
+            Long clubId = clubRepository.getClubIdByStudentId(user.getId());
+            Club club = clubId != null ? clubRepository.findById(clubId).get() : null;
+            model.addAttribute("studentClub", club);
+        }
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
     @GetMapping("/logout")
     public String getLogout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -70,5 +87,10 @@ public class UserController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/access-denied")
+    public String getAccessDenied() {
+        return "access-denied";
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.DocFlavor;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/clubs")
@@ -38,6 +40,11 @@ public class ClubController {
             return "club/create";
         }
         return "redirect:/access-denied";
+    }
+
+    @PostMapping("/submit")
+    public String submitClub(@Valid Club club, BindingResult bindingResult, @RequestParam("logo") MultipartFile logo, Model model, Principal principal) {
+        return clubService.submitClub(club, bindingResult, logo, model, principal);
     }
 
     @GetMapping("/my-club")
@@ -72,18 +79,33 @@ public class ClubController {
         model.addAttribute("club", club);
         model.addAttribute("isMine", false);
         model.addAttribute("isStudent", user.getRole().equals("USER"));
-        model.addAttribute("isJoin", clubService.checkIfUserIsInClub(user, club));
+        model.addAttribute("isJoin", clubService.checkIfStudentIsInClub(user, club));
+        model.addAttribute("canJoin", !clubService.checkIfStudentIsInSomeClub(user));
         model.addAttribute("encoder", new ImageEncoder());
         return "club/show";
     }
 
-    @PostMapping("/submit")
-    public String submitClub(@Valid Club club, BindingResult bindingResult, @RequestParam("logo") MultipartFile logo, Model model, Principal principal) {
-        return clubService.submitClub(club, bindingResult, logo, model, principal);
+    @GetMapping("/{clubId}/students")
+    public String getManageStudents(@PathVariable("clubId") Long clubId, Model model) {
+        Club club = clubRepository.findById(clubId).get();
+        List<User> students = club.getStudents();
+        model.addAttribute("club", club);
+        model.addAttribute("students", students);
+        return "club/manage-students";
+    }
+
+    @PostMapping("/{clubId}/remove-student/{studentId}")
+    public String getSubmitRemoveStudent(@PathVariable("clubId") Long clubId, @PathVariable("studentId") Long studentId) {
+        return clubService.submitRemoveStudent(clubId, studentId);
     }
 
     @PostMapping("/submit-join-club/{clubId}")
     public String getSubmitJoinClub(@PathVariable("clubId") Long clubId, Principal principal) {
         return clubService.submitJoinClub(clubId, principal);
+    }
+
+    @PostMapping("/{clubId}/submit-delete")
+    public String getSubmitDeleteClub(@PathVariable("clubId") Long clubId) {
+        return clubService.submitDeleteClub(clubId);
     }
 }
