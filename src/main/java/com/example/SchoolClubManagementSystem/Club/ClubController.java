@@ -72,7 +72,7 @@ public class ClubController {
     public String getClub(@PathVariable("id") Long id, Principal principal, Model model) {
         User user = userRepository.getUserByUsername(principal.getName());
         Long clubId = clubRepository.getClubIdByTeacherId(user.getId());
-        if (clubId != null) {
+        if (clubId == id) {
             return "redirect:/clubs/my-club";
         }
         Club club = clubRepository.findById(id).get();

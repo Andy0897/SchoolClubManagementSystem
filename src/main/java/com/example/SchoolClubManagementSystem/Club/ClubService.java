@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -41,8 +42,6 @@ public class ClubService {
             model.addAttribute("isLogoSelected", !nullLogo);
             return "club/create";
         }
-        System.out.println("is null: " + nullLogo);
-        System.out.println(club.getTeacher());
         if (bindingResult.hasFieldErrors("name") || bindingResult.hasFieldErrors("description") || nullLogo) {
             model.addAttribute("club", club);
             model.addAttribute("hasUploadError", false);
@@ -99,14 +98,7 @@ public class ClubService {
     }
 
     public String submitDeleteClub(Long clubId) {
-        Club club = clubRepository.findById(clubId).get();
-        club.setStudents(null);
-        List<Post> posts = club.getPosts();
-        for(Post post : posts) {
-            postRepository.delete(post);
-        }
-        clubRepository.save(club);
-        clubRepository.delete(club);
+        clubRepository.deleteById(clubId);
         return "redirect:/profile";
     }
 }
